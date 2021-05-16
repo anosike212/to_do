@@ -1,0 +1,13 @@
+[unit]
+Description=Gunicorn server for SITENAME
+
+[service]
+Restart=on-failure
+User=ubuntu
+WorkingDirectory=/home/ubuntu/sites/SITENAME/source
+ExecStart=/home/ubuntu/sites/SITENAME/virtualenv/bin\
+    gunicorn --bind unix:/tmp/SITENAME.socket\
+    to_do.asgi:application -k uvicorn.workers.UvicornH11Worker
+
+[install]
+WantedBy=multi-user.target
