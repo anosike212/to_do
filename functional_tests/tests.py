@@ -55,9 +55,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertIn("To-Do", self.browser.title)
         header_text = self.browser.find_element_by_tag_name("h1").text
         header = self.browser.find_element_by_tag_name("body")
-        print(header, "*********")
-        print(dir(header), "########")
-        print(header.value_of_css_property("background-color"))
         self.assertIn("To-Do", header_text)
 
         # she is invited to enter a to-do item straight aself.browser.find_element_by_id(way
