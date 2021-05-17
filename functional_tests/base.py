@@ -8,13 +8,14 @@ from selenium.common.exceptions import WebDriverException
 import time
 import os
 import unittest
+from unittest import skip
 
 MAX_WAIT = 10
 
-os.environ["STAGING_SERVER"] = "3.17.147.108"
+# os.environ["STAGING_SERVER"] = "3.17.147.108"
 
 
-class NewVisitorTest(StaticLiveServerTestCase):
+class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -38,6 +39,9 @@ class NewVisitorTest(StaticLiveServerTestCase):
                 if time.time() - start_time > MAX_WAIT:
                     raise e
                 time.sleep(0.5)
+
+
+class NewVisitorTest(FunctionalTest):
 
     def check_for_row_in_list_table(self, row_text):
         table = self.browser.find_element_by_id("id_list_tabl")
@@ -133,6 +137,9 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
         # Satisfied, they both go back to sleep
 
+
+class LayoutAndStylingTest(FunctionalTest):
+
     def test_layout_and_styling(self):
         #Edith goes to the homepage
         self.browser.get(self.live_server_url)
@@ -145,3 +152,17 @@ class NewVisitorTest(StaticLiveServerTestCase):
             512,
             delta=10
         )
+
+
+class ItemValidationTest(FunctionalTest):
+
+    @skip
+    def test_cannot_add_empty_list_items(self):
+        # Edith goes to the home page and accidentally tries to submit
+        # an empty list item. She hits Enter on an empty box
+
+        # The home page refreshes, and there is an error message saying 
+        # that list items cannot be blank
+
+        # She tries again with some text for the item, which now works
+        self.fail("write me")
