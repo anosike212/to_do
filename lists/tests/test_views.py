@@ -6,6 +6,7 @@ from django.http import HttpRequest
 from django.utils.html import escape
 from lists.views import home_page
 from lists.models import List, Item 
+from lists.forms import ItemForm
 
 
 class HomePageTest(TestCase):
@@ -25,10 +26,9 @@ class HomePageTest(TestCase):
 
         self.assertTemplateUsed(response, "home.html")
 
-    # def test_can_save_a_post_request(self):
-    #     response = self.client.post("/", data={"item_text": "A new list item"})
-    #     self.assertIn("A new list item", response.content.decode("utf8"))
-    #     self.assertTemplateUsed(response, "home.html")
+    def test_home_page_uses_item_form(self):
+        response = self.client.get("/")
+        self.assertIsInstance(response.context["form"], ItemForm)
 
 
 class ListViewTest(TestCase):
