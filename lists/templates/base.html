@@ -37,7 +37,10 @@
         <script src="/static/list.js" type="text/javascript"></script>
 
         <script>
-            initialize();
+            $(document).ready(function() {
+                initialize();
+            });
         </script>
+        {% block js_code %}{% endblock %}
     </body>
 </html> 
